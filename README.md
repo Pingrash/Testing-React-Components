@@ -26,3 +26,29 @@ Enzyme.configure({
   disableLifecycleMethods: true
 });
 ```
+
+## Testing PropTypes
+
+Uses the Prop-Types library.
+Define what data types are expected from each prop received.
+This will return a console error if the incorrect data type is used teliing the developer what was passed and what was expected.
+
+### Example
+
+```js
+Headline.propTypes = {
+  header: PropTypes.string,
+  description: PropTypes.string,
+
+  // Array of objects example
+  tempArr: PropTypes.arrayOf(
+    PropTypes.shape({
+      fName: PropTypes.string,
+      lName: PropTypes.string,
+      email: PropTypes.string,
+      age: PropTypes.number,
+      onlineStatus: PropTypes.bool
+    })
+  )
+};
+```
