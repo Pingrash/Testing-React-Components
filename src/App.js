@@ -5,11 +5,7 @@ import Header from './components/header';
 import Headline from './components/headline';
 import SharedButton from './components/button';
 import ListItem from './components/listItem';
-import {
-  useDispatch,
-  useSelector,
-  connect
-} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from './actions';
 
 const tempArr = [
@@ -34,7 +30,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div data-test='appComponent'>
       <Header />
       <section className='main'>
         <Headline
@@ -62,4 +58,4 @@ const App = () => {
   );
 };
 
-export default connect(null, { fetchPosts })(App);
+export default App;
