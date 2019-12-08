@@ -1,5 +1,13 @@
 # Creating An App Using Testing Methods
 
+## Table Of Contents
+
+1. [About](#About)
+2. [Starting Off](#Starting-Off)
+3. [Testing The Component](#Testing-The-Component)
+4. [Testing PropTypes](#Testing-PropTypes)
+5. [Testing Async Functions](#Testing-Async-Functions)
+
 ## About
 
 ## Starting Off
@@ -175,4 +183,61 @@ export const checkProps = (component, expectedProps) => {
   );
   return propsError;
 };
+```
+
+## Testing Async Functions
+
+### Dependencies
+
+Moxios
+
+```console
+yarn add -D moxios
+```
+
+### Setup And Cleanup
+
+Use a beforeEach and afterEach to run moxios' install and uninstall functions.
+
+```js
+beforeEach(() => moxios.install());
+afterEach(() => moxios.uninstall());
+```
+
+### Example Test
+
+```js
+test('Store is updated correctly', () => {
+  const expectedState = [
+    {
+      title: 'Example title 1',
+      body: 'Some Text'
+    },
+    {
+      title: 'Example title 2',
+      body: 'Some Text'
+    },
+    {
+      title: 'Example title 3',
+      body: 'Some Text'
+    }
+  ];
+
+  // testStore function is a utility function. Allows use to use a redux store with the same middleware as the actual app.
+  const store = testStore();
+
+  moxios.wait(() => {
+    // Create a mock request to send through moxios.
+    const request = moxios.requests.mostRecent();
+    request.respondWith({
+      status: 200,
+      response: expectedState
+    });
+  });
+
+  return store.dispatch(fetchPosts()).then(() => {
+    const newState = store.getState();
+    expect(newState.posts).toBe(expectedState);
+  });
+});
 ```

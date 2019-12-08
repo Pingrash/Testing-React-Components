@@ -8,6 +8,7 @@ import ListItem from './components/listItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from './actions';
 
+// Dummy array for test demonstration purposes only.
 const tempArr = [
   {
     fName: 'Joe',
